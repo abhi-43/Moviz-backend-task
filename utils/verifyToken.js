@@ -4,6 +4,7 @@ import User from "../models/user.js";
 
 
   export const verifyUser = async (req, res, next) => {
+    try{
     let token;
   if ('authorization' in req.headers) {
     token = req.headers['authorization'].split(' ')[1];
@@ -30,4 +31,7 @@ import User from "../models/user.js";
   delete changedUser.password
   res.locals.user = changedUser;
   next();
+}catch(err){
+      res.status(404).send("failed")
+}
 };
